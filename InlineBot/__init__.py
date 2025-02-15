@@ -12,6 +12,7 @@ TG_BOT_WORKERS = int(os.environ.get("BOT_WORKERS", '4'))
 DB_NAME = os.environ.get("DATABASE_NAME", "InlineFilterBot")
 thumb = os.environ.get('THUMBNAIL_URL', 'https://telegra.ph/file/516ca261de9ebe7f4ffe1.jpg')
 OWNER_ID = int(os.environ.get('OWNER_ID'))
+PORT = int(os.environ.get("PORT", "8080"))
 CUSTOM_START_MESSAGE = os.environ.get('START_MESSAGE','')
 FILTER_COMMAND = os.environ.get('FILTER_COMMAND', 'add')
 DELETE_COMMAND = os.environ.get('DELETE_COMMAND', 'del')
@@ -71,6 +72,10 @@ class CodeXBotz(Client):
         self.LOGGER(__name__).info(f"@{bot_details.username}  started!")
         self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
+        app = web.AppRunner(await web_server())
+       await app.setup()
+       bind_address = "0.0.0.0"
+       await web.TCPSite(app, bind_address, PORT).start()
 
     async def stop(self, *args):
         await super().stop()
