@@ -28,6 +28,11 @@ except ValueError:
 
 import logging
 from logging.handlers import RotatingFileHandler
+from aiohttp import web
+from aiohttp.web_runner import AppRunner
+from aiohttp.web import TCPSite
+import asyncio
+from pyrogram import Client
 
 LOG_FILE_NAME = "codexbotz.txt"
 
@@ -72,15 +77,37 @@ class CodeXBotz(Client):
         self.LOGGER(__name__).info(f"@{bot_details.username}  started!")
         self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
+        
+        async def web_server():
+            async def handle(request):
+                return web.Response(text="Bot is running!")
+                
+                app = web.Application()
+            app.router.add_get("/", handle)
+            return app
+        
         app = web.AppRunner(await web_server())
         await app.setup()
         bind_address = "0.0.0.0"
-        await web.TCPSite(app, bind_address, PORT).start()
-        await idle()
-
+        await web.TCPSite(app, bind_address, PORT)
+        await site.start()
+        
+        self.LOGGER.info(f"Web server running on http://{bind_address}:{PORT}")
+        
+        # Idle replacement
+        while True:
+            await asyncio.sleep(3600)
+            
     async def stop(self, *args):
         await super().stop()
         self.LOGGER(__name__).info("Bot stopped. Bye.")
+        
+if __name__ == "__main__":
+    bot = CodexXBotz()
+    try:
+        asyncio.run(bot.start())
+    except KeyboardInterrupt:
+        asyncio.run(bot.stop())
         
 #---------- ---------- ---------- ----------
 
