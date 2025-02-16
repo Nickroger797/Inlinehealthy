@@ -59,6 +59,11 @@ from pyrogram import Client
 
 class CodeXBotz(Client):
     def __init__(self):
+        self.LOGGER = logging.getLogger(__name__)
+        self.LOGGER.setLevel(logging.INFO)
+        handler = logging.StreamHandler()
+        handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+        self.LOGGER.addHandler(handler)
         super().__init__(
             "bot",
             api_hash=API_HASH,
