@@ -82,7 +82,7 @@ class CodeXBotz(Client):
             async def handle(request):
                 return web.Response(text="Bot is running!")
                 
-                app = web.Application()
+            app = web.Application()
             app.router.add_get("/", handle)
             return app
         
