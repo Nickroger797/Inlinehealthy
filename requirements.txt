@@ -3,3 +3,4 @@ pymongo
 TgCrypto
 telegraph
 dnspython
+aiohttp
