@@ -74,7 +74,7 @@ class CodeXBotz(Client):
             workers=TG_BOT_WORKERS,
             bot_token=BOT_TOKEN
         )
-        self.LOGGER(__name__).info("Created by Code X Botz\nhttps://t.me/CodeXBotz")
+        self.LOGGER.info("Created by Code X Botz\nhttps://t.me/CodeXBotz")
 
     async def start(self):
         await super().start()
