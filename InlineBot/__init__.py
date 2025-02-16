@@ -79,8 +79,8 @@ class CodeXBotz(Client):
     async def start(self):
         await super().start()
         bot_details = await self.get_me()
-        self.LOGGER(__name__).info(f"@{bot_details.username}  started!")
-        self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
+        self.LOGGER.info(f"@{bot_details.username}  started!")
+        self.LOGGER.info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
         
         async def web_server():
@@ -106,7 +106,7 @@ class CodeXBotz(Client):
             
     async def stop(self, *args):
         await super().stop()
-        self.LOGGER(__name__).info("Bot stopped. Bye.")
+        self.LOGGER.info("Bot stopped. Bye.")
         
 if __name__ == "__main__":
     bot = CodexXBotz()
