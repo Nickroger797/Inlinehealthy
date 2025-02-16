@@ -86,10 +86,11 @@ class CodeXBotz(Client):
             app.router.add_get("/", handle)
             return app
         
-        app = web.AppRunner(await web_server())
-        await app.setup()
+        app = await web_server()
+        runner = web.AppRunner(app)
+        await runner.setup()
         bind_address = "0.0.0.0"
-        await web.TCPSite(app, bind_address, PORT)
+        site = web.TCPSite(runner, bind_address, PORT)
         await site.start()
         
         self.LOGGER.info(f"Web server running on http://{bind_address}:{PORT}")
