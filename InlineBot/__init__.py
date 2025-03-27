@@ -3,7 +3,7 @@
 # Written by Shahsad Kolathur <shahsadkpklr@gmail.com>, June 2021
 
 import os
-from server import start_web
+from InlineBot.server import start_web
 
 API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
 APP_ID = int(os.environ.get("APP_ID", "23331203"))
