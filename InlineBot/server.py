@@ -1,15 +1,12 @@
 from flask import Flask
-import threading
+import os
 
 app = Flask(__name__)
 
-@app.route('/health')
-def health_check():
-    return "OK", 200
-
-def run():
-    app.run(host="0.0.0.0", port=8080)
+@app.route('/')
+def home():
+    return "Bot is running!"
 
 def start_web():
-    t = threading.Thread(target=run)
-    t.start()
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
