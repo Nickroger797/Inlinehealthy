@@ -71,17 +71,17 @@ class CodeXBotz(Client):
 
     async def start(self):
         global TIME_OFFSET
-        sync_time()  # Time को पहले sync करो
-        time.sleep(TIME_OFFSET)  # Pyrogram को सही time के साथ sync करने के लिए  
-        
+        sync_time()  # Time sync करो
+        time.sleep(TIME_OFFSET)  # Pyrogram के sync के लिए  
+
         await super().start()
-        start_web()  # Flask server start karega (Health Check ke liye)
+        start_web()  # Flask server start karega  
         bot_details = await self.get_me()
-        
+
         self.LOGGER(__name__).info(f"@{bot_details.username} started!")
         self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
-        
+
         print("✅ Bot Started Successfully!")
 
 #---------- ---------- ---------- ----------
@@ -133,24 +133,6 @@ def check_inline(_, __, update):
         return True
     else:
         return False
-
-def sync_time():
-    try:
-        response = requests.get("http://worldtimeapi.org/api/timezone/Etc/UTC")
-        if response.status_code == 200:
-            utc_time = response.json()["unixtime"]
-            local_time = int(time.time())
-            time_diff = utc_time - local_time
-            print(f"✅ Time synced! Difference: {time_diff} sec")
-            return time_diff
-        else:
-            print("❌ Failed to fetch time from API")
-            return 0
-    except Exception as e:
-        print(f"❌ Error syncing time: {e}")
-        return 0
-
-TIME_OFFSET = sync_time()
 
 filters.admins = filters.create(is_admin)
 filters.owner = filters.create(is_owner)
