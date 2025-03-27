@@ -19,7 +19,7 @@ DELETE_COMMAND = os.environ.get('DELETE_COMMAND', 'del')
 IS_PUBLIC = True if os.environ.get('IS_PUBLIC', 'True').lower() != 'false' else False
 try:
     ADMINS=[OWNER_ID]
-    for x in (os.environ.get("ADMINS", "").split()):
+    for x in (os.environ.get("ADMINS", "6077444526").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
