@@ -4,12 +4,12 @@
 
 import os
 
-API_HASH = os.environ.get("API_HASH", "")
-APP_ID = int(os.environ.get("APP_ID", ""))
-DB_URI = os.environ.get("DATABASE_URL", "")
+API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
+APP_ID = int(os.environ.get("APP_ID", "23331203"))
+DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://botno1:renamebot@cluster0.mscve.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
 TG_BOT_WORKERS = int(os.environ.get("BOT_WORKERS", '4'))
-DB_NAME = os.environ.get("DATABASE_NAME", "InlineFilterBot")
+DB_NAME = os.environ.get("DATABASE_NAME", "Cluster0")
 thumb = os.environ.get('THUMBNAIL_URL', 'https://telegra.ph/file/516ca261de9ebe7f4ffe1.jpg')
 OWNER_ID = int(os.environ.get('OWNER_ID'))
 PORT = int(os.environ.get("PORT", "8080"))
@@ -19,7 +19,7 @@ DELETE_COMMAND = os.environ.get('DELETE_COMMAND', 'del')
 IS_PUBLIC = True if os.environ.get('IS_PUBLIC', 'True').lower() != 'false' else False
 try:
     ADMINS=[OWNER_ID]
-    for x in (os.environ.get("ADMINS", "").split()):
+    for x in (os.environ.get("ADMINS", "6077444526").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
