@@ -5,6 +5,7 @@
 import os
 import time
 from InlineBot.server import start_web
+from InlineBot.time_sync import *
 
 API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
 APP_ID = int(os.environ.get("APP_ID", "23331203"))
