@@ -4,3 +4,4 @@ TgCrypto
 telegraph
 dnspython
 aiohttp
+Flask
