@@ -12,14 +12,13 @@ TG_BOT_WORKERS = int(os.environ.get("BOT_WORKERS", '4'))
 DB_NAME = os.environ.get("DATABASE_NAME", "Cluster0")
 thumb = os.environ.get('THUMBNAIL_URL', 'https://telegra.ph/file/516ca261de9ebe7f4ffe1.jpg')
 OWNER_ID = int(os.environ.get('OWNER_ID'))
-PORT = int(os.environ.get("PORT", "8080"))
-CUSTOM_START_MESSAGE = os.environ.get('START_MESSAGE','')
+CUSTOM_START_MESSAGE = os.environ.get('START_MESSAGE','hello')
 FILTER_COMMAND = os.environ.get('FILTER_COMMAND', 'add')
 DELETE_COMMAND = os.environ.get('DELETE_COMMAND', 'del')
 IS_PUBLIC = True if os.environ.get('IS_PUBLIC', 'True').lower() != 'false' else False
 try:
     ADMINS=[OWNER_ID]
-    for x in (os.environ.get("ADMINS", "6077444526").split()):
+    for x in (os.environ.get("ADMINS", "").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
@@ -28,11 +27,6 @@ except ValueError:
 
 import logging
 from logging.handlers import RotatingFileHandler
-from aiohttp import web
-from aiohttp.web_runner import AppRunner
-from aiohttp.web import TCPSite
-import asyncio
-from pyrogram import Client
 
 LOG_FILE_NAME = "codexbotz.txt"
 
@@ -59,11 +53,6 @@ from pyrogram import Client
 
 class CodeXBotz(Client):
     def __init__(self):
-        self.LOGGER = logging.getLogger(__name__)
-        self.LOGGER.setLevel(logging.INFO)
-        handler = logging.StreamHandler()
-        handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-        self.LOGGER.addHandler(handler)
         super().__init__(
             "bot",
             api_hash=API_HASH,
@@ -74,46 +63,18 @@ class CodeXBotz(Client):
             workers=TG_BOT_WORKERS,
             bot_token=BOT_TOKEN
         )
-        self.LOGGER.info("Created by Code X Botz\nhttps://t.me/CodeXBotz")
+        self.LOGGER = LOGGER
 
     async def start(self):
         await super().start()
         bot_details = await self.get_me()
-        self.LOGGER.info(f"@{bot_details.username}  started!")
-        self.LOGGER.info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
+        self.LOGGER(__name__).info(f"@{bot_details.username}  started!")
+        self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
-        
-        async def web_server():
-            async def handle(request):
-                return web.Response(text="Bot is running!")
-                
-            app = web.Application()
-            app.router.add_get("/", handle)
-            return app
-        
-        app = await web_server()
-        runner = web.AppRunner(app)
-        await runner.setup()
-        bind_address = "0.0.0.0"
-        site = web.TCPSite(runner, bind_address, PORT)
-        await site.start()
-        
-        self.LOGGER.info(f"Web server running on http://{bind_address}:{PORT}")
-        
-        # Idle replacement
-        while True:
-            await asyncio.sleep(3600)
-            
+
     async def stop(self, *args):
         await super().stop()
-        self.LOGGER.info("Bot stopped. Bye.")
-        
-if __name__ == "__main__":
-    bot = CodexXBotz()
-    try:
-        asyncio.run(bot.start())
-    except KeyboardInterrupt:
-        asyncio.run(bot.stop())
+        self.LOGGER(__name__).info("Bot stopped. Bye.")
         
 #---------- ---------- ---------- ----------
 
