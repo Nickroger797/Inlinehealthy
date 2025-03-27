@@ -71,9 +71,9 @@ class CodeXBotz(Client):
         self.LOGGER = LOGGER
 
     async def start(self):
-        global TIME_OFFSET
-        sync_time()  # Time sync करो
-        time.sleep(TIME_OFFSET)  # Pyrogram के sync के लिए  
+        # Wait for correct time sync
+        print("⏳ Waiting for time sync...")
+        time.sleep(5)  # Wait for 5 seconds before starting bot
 
         await super().start()
         start_web()  # Flask server start karega  
