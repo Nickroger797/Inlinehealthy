@@ -3,6 +3,7 @@
 # Written by Shahsad Kolathur <shahsadkpklr@gmail.com>, June 2021
 
 import os
+import time
 from InlineBot.server import start_web
 
 API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
@@ -127,6 +128,17 @@ def check_inline(_, __, update):
         return True
     else:
         return False
+
+def sync_time():
+    print("Syncing system time...")
+    try:
+        os.system("date")
+        time.sleep(1)
+        print("Time synced successfully.")
+    except Exception as e:
+        print(f"Error syncing time: {e}")
+
+sync_time()
 
 filters.admins = filters.create(is_admin)
 filters.owner = filters.create(is_owner)
