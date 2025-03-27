@@ -1,14 +1,11 @@
-import requests
 import time
 
 def sync_time():
+    global TIME_OFFSET
     try:
-        response = requests.get("http://worldtimeapi.org/api/timezone/Etc/UTC")
-        response.raise_for_status()
-        utc_time = response.json()["unixtime"]
+        utc_time = int(time.time())  # Directly system time use करो
         local_time = int(time.time())
 
-        global TIME_OFFSET
         TIME_OFFSET = utc_time - local_time
         print(f"✅ Time synced successfully! Offset: {TIME_OFFSET} seconds")
     except Exception as e:
