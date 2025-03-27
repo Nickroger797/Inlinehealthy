@@ -1,9 +1,18 @@
+import requests
 import time
-import os
 
-# System Time Sync Fix
-print("Syncing system time...")
-os.system("ntpdate -u pool.ntp.org")  # Koyeb में काम कर सकता है
+def sync_time():
+    try:
+        response = requests.get("http://worldtimeapi.org/api/timezone/Etc/UTC")
+        response.raise_for_status()
+        utc_time = response.json()["unixtime"]
+        local_time = int(time.time())
 
-print("Time synced successfully.")
-time.sleep(2)
+        global TIME_OFFSET
+        TIME_OFFSET = utc_time - local_time
+        print(f"✅ Time synced successfully! Offset: {TIME_OFFSET} seconds")
+    except Exception as e:
+        print(f"❌ Error syncing time: {e}")
+        TIME_OFFSET = 0
+
+sync_time()
