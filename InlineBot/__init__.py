@@ -71,9 +71,10 @@ class CodeXBotz(Client):
 
     async def start(self):
         global TIME_OFFSET
-        await super().start()
+        sync_time()  # Time को पहले sync करो
         time.sleep(TIME_OFFSET)  # Pyrogram को सही time के साथ sync करने के लिए  
         
+        await super().start()
         start_web()  # Flask server start karega (Health Check ke liye)
         bot_details = await self.get_me()
         
@@ -83,10 +84,6 @@ class CodeXBotz(Client):
         
         print("✅ Bot Started Successfully!")
 
-    async def stop(self, *args):
-        await super().stop()
-        self.LOGGER(__name__).info("Bot stopped. Bye.")
-        
 #---------- ---------- ---------- ----------
 
 from pyrogram import filters
