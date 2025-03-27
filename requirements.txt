@@ -1,7 +1,6 @@
-pyrogram==2.0.106
+https://github.com/Mahesh0253/pyrogram/archive/inline.zip
 pymongo
 TgCrypto
 telegraph
 dnspython
-aiohttp
 Flask
