@@ -6,7 +6,7 @@ import os
 import time
 import requests
 from InlineBot.server import start_web
-from time_sync import sync_time, TIME_OFFSET
+from InlineBot.time_sync import sync_time, TIME_OFFSET
 from InlineBot.time_sync import *
 
 API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
