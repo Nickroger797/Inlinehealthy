@@ -80,7 +80,7 @@ async def start_msg_admins(client: CodeXBotz, message: Message):
     if not await present_in_userbase(message.from_user.id):
         await add_to_userbase(message.from_user.id)
     
-@CodeXBotz.on_message(filters.command('help') & filters.private & filters.admins)
+@CodeXBotz.on_message(filters.command('help') & filters.private & (filters.user(ADMINS, strict=True) if not IS_PUBLIC else filters.all))
 async def help_msg(client: CodeXBotz, message: Message):
     await message.reply(
         text = HELP_MESSAGE,
