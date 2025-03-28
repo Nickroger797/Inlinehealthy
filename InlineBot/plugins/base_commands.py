@@ -7,7 +7,7 @@ from InlineBot import CodeXBotz, ADMINS, filters, Message, InlineKeyboardButton,
 from InlineBot.strings import START_MESSAGE, HELP_MESSAGE, ABOUT_MESSAGE, MARKDOWN_HELP
 from InlineBot.database import present_in_userbase, add_to_userbase
 from pyrogram.enums import ParseMode
-from InlineBot.__init__.py import IS_PUBLIC
+from InlineBot import IS_PUBLIC
 
 start_keyboard = [
     [
