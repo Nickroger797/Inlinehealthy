@@ -71,14 +71,23 @@ class CodeXBotz(Client):
         self.LOGGER = LOGGER
 
     async def start(self):
-        # Wait for correct time sync
-        print("⏳ Waiting for time sync...")
-        time.sleep(5)  # Wait for 5 seconds before starting bot
+        print("🔄 Resetting Pyrogram Session File...")
+        
+        # Pyrogram session file का path
+        session_path = os.path.join(os.getcwd(), "YOUR_SESSION_NAME.session")  # Update YOUR_SESSION_NAME
+        
+        # अगर session file है, तो delete कर दो (Force Reset)
+        if os.path.exists(session_path):
+            os.remove(session_path)
+            print("✅ Session file deleted successfully!")
 
+        # Wait for proper time sync
+        time.sleep(5)
+        
         await super().start()
-        start_web()  # Flask server start karega  
+        start_web()
+        
         bot_details = await self.get_me()
-
         self.LOGGER(__name__).info(f"@{bot_details.username} started!")
         self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
         self.bot_details = bot_details
