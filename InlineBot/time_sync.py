@@ -1,16 +1,14 @@
 import time
 import requests
-import os
 
 def sync_time():
     try:
         response = requests.get("http://worldtimeapi.org/api/timezone/Etc/UTC").json()
         server_time = response["unixtime"]
         local_time = int(time.time())
-        time_diff = server_time - local_time
-        if abs(time_diff) > 5:
-            os.system(f"date -s @{server_time}")
-        print(f"✅ Time synced successfully! Offset: {time_diff} seconds")
+        global TIME_OFFSET
+        TIME_OFFSET = server_time - local_time  # अब यह variable define हो गया है
+        print(f"✅ Time synced successfully! Offset: {TIME_OFFSET} seconds")
     except Exception as e:
         print(f"⚠️ Time sync failed: {e}")
 
