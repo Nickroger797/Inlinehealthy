@@ -113,7 +113,7 @@ async def close_cbb(client: CodeXBotz, query: CallbackQuery):
     except:
         pass
 
-@CodeXBotz.on_callback_query(filters.regex(r'^help$') & filters.admins)
+@CodeXBotz.on_callback_query(filters.regex(r'^help$') & (filters.user(ADMINS, strict=True) if not IS_PUBLIC else filters.all))
 async def help_cbq(client: CodeXBotz, query: CallbackQuery):
     await query.edit_message_text(
         text = HELP_MESSAGE,
