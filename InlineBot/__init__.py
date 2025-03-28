@@ -75,7 +75,7 @@ class CodeXBotz(Client):
         print("🔄 Resetting Pyrogram Session File...")
         
         # Pyrogram session file का path
-        session_path = os.path.join(os.getcwd(), "YOUR_SESSION_NAME.session")  # Update YOUR_SESSION_NAME
+        session_path = os.path.join(os.getcwd(), "bot.session")  # Update YOUR_SESSION_NAME
         
         # अगर session file है, तो delete कर दो (Force Reset)
         if os.path.exists(session_path):
