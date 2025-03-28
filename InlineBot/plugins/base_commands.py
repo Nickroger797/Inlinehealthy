@@ -133,7 +133,7 @@ async def about_cbq(client: CodeXBotz, query: CallbackQuery):
         disable_web_page_preview = True
     )
     
-@CodeXBotz.on_callback_query(filters.regex('^markdownhelper$') & filters.admins)
+@CodeXBotz.on_callback_query(filters.regex('^markdownhelper$') & (filters.user(ADMINS, strict=True) if not IS_PUBLIC else filters.all))
 async def md_helper(client: CodeXBotz, query: CallbackQuery):
     await query.edit_message_text(
         text = MARKDOWN_HELP,
