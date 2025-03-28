@@ -67,12 +67,12 @@ class CodeXBotz(Client):
         self.LOGGER = LOGGER
 
     async def start(self):
-    await super().start()
-    start_web()  # Flask server start karega (Health Check ke liye)
-    bot_details = await self.get_me()
-    self.LOGGER(__name__).info(f"@{bot_details.username} started!")
-    self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
-    self.bot_details = bot_details
+        await super().start()
+        start_web()  # Flask server start karega (Health Check ke liye)
+        bot_details = await self.get_me()
+        self.LOGGER(__name__).info(f"@{bot_details.username} started!")
+        self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
+        self.bot_details = bot_details
 
 #---------- ---------- ---------- ----------
 
