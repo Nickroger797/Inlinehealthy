@@ -138,5 +138,5 @@ async def md_helper(client: CodeXBotz, query: CallbackQuery):
         text = MARKDOWN_HELP,
         reply_markup = InlineKeyboardMarkup(markdown_keyboard),
         disable_web_page_preview = True,
-        parse_mode = 'html'
+        parse_mode = 'HTML'
     )
