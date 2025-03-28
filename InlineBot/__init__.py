@@ -5,6 +5,7 @@
 import os
 import time
 import requests
+import shutil
 from InlineBot.server import start_web
 from InlineBot.time_sync import sync_time, TIME_OFFSET
 from InlineBot.time_sync import *
