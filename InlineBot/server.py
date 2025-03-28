@@ -1,12 +1,15 @@
 from flask import Flask
-import os
+import threading
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return "Bot is running!"
+@app.route('/health')
+def health_check():
+    return "OK", 200
+
+def run():
+    app.run(host="0.0.0.0", port=8080)
 
 def start_web():
-    port = int(os.environ.get("PORT", 8080))  # Koyeb का default port use करो
-    app.run(host="0.0.0.0", port=port)
+    t = threading.Thread(target=run)
+    t.start()
