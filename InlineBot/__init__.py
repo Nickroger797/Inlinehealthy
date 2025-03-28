@@ -3,12 +3,7 @@
 # Written by Shahsad Kolathur <shahsadkpklr@gmail.com>, June 2021
 
 import os
-import time
-import requests
-import shutil
 from InlineBot.server import start_web
-from InlineBot.time_sync import sync_time
-from InlineBot.time_sync import *
 
 API_HASH = os.environ.get("API_HASH", "05be4bb2e1e6806a2ffd23402079e23a")
 APP_ID = int(os.environ.get("APP_ID", "23331203"))
@@ -72,28 +67,12 @@ class CodeXBotz(Client):
         self.LOGGER = LOGGER
 
     async def start(self):
-        print("🔄 Resetting Pyrogram Session File...")
-        
-        # Pyrogram session file का path
-        session_path = os.path.join(os.getcwd(), "bot.session")  # Update YOUR_SESSION_NAME
-        
-        # अगर session file है, तो delete कर दो (Force Reset)
-        if os.path.exists(session_path):
-            os.remove(session_path)
-            print("✅ Session file deleted successfully!")
-
-        # Wait for proper time sync
-        time.sleep(5)
-        
-        await super().start()
-        start_web()
-        
-        bot_details = await self.get_me()
-        self.LOGGER(__name__).info(f"@{bot_details.username} started!")
-        self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
-        self.bot_details = bot_details
-
-        print("✅ Bot Started Successfully!")
+    await super().start()
+    start_web()  # Flask server start karega (Health Check ke liye)
+    bot_details = await self.get_me()
+    self.LOGGER(__name__).info(f"@{bot_details.username} started!")
+    self.LOGGER(__name__).info("Created by 𝘾𝙤𝙙𝙚 𝕏 𝘽𝙤𝙩𝙯\nhttps://t.me/CodeXBotz")
+    self.bot_details = bot_details
 
 #---------- ---------- ---------- ----------
 
