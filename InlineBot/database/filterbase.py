@@ -11,30 +11,26 @@ database = dbclient[DB_NAME]
 filter_collection = database['filters']
 
 async def add_filter(text, reply_text, btn, file, alert, msg_type, id):
-    text = text.lower()
+    text = text.lower()  # Ensure text is stored in lowercase
     fdata = {'text': str(text)}
-    
+
     button = str(btn)
     button = button.replace('pyrogram.types.InlineKeyboardButton', 'InlineKeyboardButton')
     found = filter_collection.find_one(fdata)
     if found:
         filter_collection.delete_one(fdata)
         
-    data = {'_id': id, 'text':str(text), 'reply':str(reply_text), 'btn':str(button), 'file':str(file), 'alert':str(alert), 'type':str(msg_type)}
+    data = {'_id': id, 'text': str(text), 'reply': str(reply_text), 'btn': str(button), 'file': str(file), 'alert': str(alert), 'type': str(msg_type)}
     filter_collection.insert_one(data)
     
 async def delete_filter(message, text):
-    text = text.lower()
-    query = {'text':text}
+    text = text.lower()  # Convert to lowercase before checking
+    query = {'text': text}
     
     found = filter_collection.find_one(query)
-    
     if found:
         filter_collection.delete_one(query)
-        await message.reply_text(
-            f"<code>{text}</code>  deleted.",
-            quote=True
-        )
+        await message.reply_text(f"<code>{text}</code> deleted.", quote=True)
     else:
         await message.reply_text("Couldn't find that filter!", quote=True)
 
@@ -43,7 +39,7 @@ async def get_all_filters():
     query = filter_collection.find().sort('text', 1)
     try:
         for file in query:
-            text = file['text'].lower()
+            text = file['text'].lower()  # Ensure lowercase
             texts.append(text)
     except:
         pass
@@ -67,7 +63,7 @@ async def del_all(message):
         return
 
 async def get_filters(text):
-    text = text.lower()
+    text = text.lower()  # Convert input text to lowercase
     if text == "":
         documents = filter_collection.find()
         doc_list = list(documents)
@@ -78,7 +74,7 @@ async def get_filters(text):
         query = {'text': {'$regex': regex, '$options': 'i'}}  # Case-insensitive search
         documents = filter_collection.find(query).sort('text', 1).limit(50)
         return documents
-
+        
 async def get_alerts(id):
     document = filter_collection.find_one({'_id': id})
     if not document:
