@@ -63,17 +63,18 @@ async def del_all(message):
         return
 
 async def get_filters(text):
-    text = text.lower()  # Convert input text to lowercase
-    if text == "":
-        documents = filter_collection.find()
-        doc_list = list(documents)
-        doc_list.reverse()
-        return doc_list[:50]
+    text = text.lower()
+    print(f"Searching for filter: {text}")  # Debug Log
+
+    query = {'text': {'$regex': f"^{text}$", '$options': 'i'}}
+    document = filter_collection.find_one(query)
+
+    if document:
+        print(f"Filter Found: {document}")  # Debug Log
     else:
-        regex = f"^{text}.*"
-        query = {'text': {'$regex': regex, '$options': 'i'}}  # Case-insensitive search
-        documents = filter_collection.find(query).sort('text', 1).limit(50)
-        return documents
+        print("No Filter Found!")  # Debug Log
+
+    return document
         
 async def get_alerts(id):
     document = filter_collection.find_one({'_id': id})
