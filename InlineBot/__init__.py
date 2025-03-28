@@ -111,9 +111,22 @@ def is_admin(_, __, update):
         return True
     else:
         return False
+        
 def check_inline(_, __, update):
-    return IS_PUBLIC or update.from_user.id in ADMINS
+    try:
+        user_id = update.from_user.id
+    except:
+        return False
 
+    if IS_PUBLIC:
+        return True
+    elif user_id in ADMINS:
+        return True
+    else:
+        return False
+
+filters.admins = filters.create(is_admin)
+filters.owner = filters.create(is_owner)
 filters.inline = filters.create(check_inline)
 
 #---------- ---------- ---------- ----------
