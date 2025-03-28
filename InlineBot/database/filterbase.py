@@ -11,7 +11,7 @@ database = dbclient[DB_NAME]
 filter_collection = database['filters']
 
 async def add_filter(text, reply_text, btn, file, alert, msg_type, id):
-    
+    text = text.lower()
     fdata = {'text': str(text)}
     
     button = str(btn)
@@ -24,7 +24,7 @@ async def add_filter(text, reply_text, btn, file, alert, msg_type, id):
     filter_collection.insert_one(data)
     
 async def delete_filter(message, text):
-    
+    text = text.lower()
     query = {'text':text}
     
     found = filter_collection.find_one(query)
@@ -43,7 +43,7 @@ async def get_all_filters():
     query = filter_collection.find().sort('text', 1)
     try:
         for file in query:
-            text = file['text']
+            text = file['text'].lower()
             texts.append(text)
     except:
         pass
@@ -67,6 +67,7 @@ async def del_all(message):
         return
 
 async def get_filters(text):
+    text = text.lower()
     if text == "":
         documents = filter_collection.find()
         doc_list = list(documents)
